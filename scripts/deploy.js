@@ -7,19 +7,18 @@
 const hre = require("hardhat");
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
-  const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
-
-  const lockedAmount = hre.ethers.utils.parseEther("1");
-
-  const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
-
-  await lock.deployed();
-
+  ERC20Token = await ethers.getContractFactory("ERC20Token");
+  erc20Token = await ERC20Token.deploy();
   console.log(
-    `Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
+    "🚀 ~ file: deploy.js:12 ~ main ~ erc20Token",
+    erc20Token.address
+  );
+
+  DistributeDemo = await ethers.getContractFactory("DistributeDemo");
+  distributeDemo = await DistributeDemo.deploy(erc20Token.address, 2);
+  console.log(
+    "🚀 ~ file: deploy.js:17 ~ main ~ distributeDemo",
+    distributeDemo.address
   );
 }
 
