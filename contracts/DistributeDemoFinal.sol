@@ -21,7 +21,7 @@ contract DistributeDemo {
        @dev this function will lock the reward amount in the contract 
        @param _amount will be the reward amount 
     */
-    function rewardAmount(uint256 _amount) public {
+    function rewardAmount(uint256 _amount) external {
         totalAmount += _amount;
         erc20Token.transferFrom(msg.sender, address(this), _amount);
     }
@@ -29,7 +29,7 @@ contract DistributeDemo {
     /**
     @dev User will join to get the reward 
      */
-    function joinForReward() public {
+    function joinForReward() external {
         require(Users[msg.sender] == false, "User Already Joined");
         Users[msg.sender] = true;
         totalUsers++;
@@ -38,7 +38,7 @@ contract DistributeDemo {
     /**
      @dev Joined User will withdraw the reward amount 
       */
-    function withdrawReward() public {
+    function withdrawReward() external {
         require(alreadyWithdraw[msg.sender] == false, "Not in the reward List");
         require(totalUsers >= minimumUsers, "Wait till Minimum User Join");
         uint256 perUserAmount = totalAmount / totalUsers;
